@@ -1,4 +1,6 @@
-# Spacex-Launches setup and configuration with TypeScript, React,MUI and Tanstack Query ,Zustand.
+# Spacex-Launches
+
+setup and configuration with TypeScript, React,MUI and Tanstack Query ,Zustand.
 
 | Tool                 | Purpose                                           |
 | -------------------- | ------------------------------------------------- |
@@ -14,8 +16,9 @@
 ```bash
 git clone https://github.com/soniah770/spacex-launches.git
 cd spacex-launches
+```
 
-## Features
+### Features
 
 - ⚛️ **React** component library with **TypeScript**.
 
@@ -31,6 +34,7 @@ cd spacex-launches
 
 ## 🤖 Scripts
 
+```bash
 |      Script       | Function                                                                           |
 | :---------------: | ---------------------------------------------------------------------------------- |
 |      `build`      | Build the `dist`, with types declarations, after checking types with TypeScript.   |
