@@ -1,4 +1,3 @@
-// src/types.ts
 export type Status = 'Upcoming' | 'Success' | 'Failed';
 
 export interface Links {

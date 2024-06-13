@@ -1,18 +1,17 @@
-// src/hooks/useFetchLaunches.ts
-import { useQuery } from '@tanstack/react-query';
-import { fetchLaunches } from '../services/fetchLaunches';
-import { ResponseData } from '../types';
-import { LAUNCHES_QUERY_KEY } from '../constants/queryKeys';
+import { useQuery } from 'react-query';
+import { getLaunchList, getLaunch } from '../services/fetchLaunches';
+import { Doc } from '../types';
 
-type QueryParams = {
-  page: number;
-  query: object;
+export const useLaunchList = (page: number, query: object) => {
+  return useQuery<Doc[], Error>(
+    ['launchList', page, query],
+    () => getLaunchList(page, query),
+    {
+      keepPreviousData: true,
+    },
+  );
 };
 
-export const useFetchLaunches = ({ page, query }: QueryParams) => {
-  return useQuery<ResponseData, Error>({
-    queryKey: [LAUNCHES_QUERY_KEY, page, query],
-    queryFn: () => fetchLaunches(page, query),
-    keepPreviousData: true,
-  });
+export const useLaunch = (id: string) => {
+  return useQuery<Doc, Error>(['launch', id], () => getLaunch(id));
 };

@@ -1,11 +1,14 @@
-// src/tests/LaunchesPage.test.tsx
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { describe, it, expect, beforeEach } from 'vitest';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import LaunchPage from '../pages/LaunchPage';
 
-// Create a new QueryClient instance
-const queryClient = new QueryClient();
+// Create a new QueryClient instance for each test to avoid state sharing
+let queryClient: QueryClient;
+
+beforeEach(() => {
+  queryClient = new QueryClient();
+});
 
 describe('LaunchPage', () => {
   it('should render without crashing and contain the search input and button', () => {

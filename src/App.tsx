@@ -1,4 +1,3 @@
-// src/App.tsx
 import React from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider, CssBaseline, createTheme } from '@mui/material';
@@ -25,7 +24,7 @@ const App: React.FC = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
+      <ThemeProvider theme={isDarkMode ? lightTheme : darkTheme}>
         <CssBaseline />
         <Header />
         <LaunchPage />

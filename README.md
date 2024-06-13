@@ -2,12 +2,12 @@
 
 setup and configuration with TypeScript, React,MUI and Tanstack Query ,Zustand.
 
-| Tool                 | Purpose                                           |
-| -------------------- | ------------------------------------------------- |
-| React                | A JavaScript library for building user interfaces |
-| TypeScript           | Static typing for JavaScript                      |
-| Zustand              | Store Management                                  |
-| tanstack/react-query | Data fetching and caching                         |
+| Tool        | Purpose                                           |
+| ----------- | ------------------------------------------------- |
+| React       | A JavaScript library for building user interfaces |
+| TypeScript  | Static typing for JavaScript                      |
+| Zustand     | Store Management                                  |
+| react-query | Data fetching and caching                         |
 
 ## Getting Started
 

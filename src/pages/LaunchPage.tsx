@@ -1,4 +1,3 @@
-// src/pages/LaunchPage.tsx
 import React, { useState } from 'react';
 import {
   Box,
@@ -8,16 +7,15 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { useFetchLaunches } from '../hooks/useFetchLaunches';
+import { useLaunchList } from '../hooks/useFetchLaunches';
 import LaunchList from '../components/LaunchList';
 
 const LaunchPage: React.FC = () => {
-  const [page, setPage] = useState(1);
-  const [query, setQuery] = useState('');
-  const { data, isLoading, isError, isPreviousData } = useFetchLaunches({
-    page,
-    query,
-  });
+  const [page, setPage] = useState<number>(1);
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const query = searchQuery ? { name: searchQuery } : {};
+
+  const { data, isLoading, isError, isFetching } = useLaunchList(page, query);
 
   return (
     <Box p={3}>
@@ -26,8 +24,8 @@ const LaunchPage: React.FC = () => {
           <TextField
             label="Search Launches"
             variant="outlined"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             fullWidth
             sx={{ maxWidth: 500, mr: 2 }}
           />
@@ -51,13 +49,13 @@ const LaunchPage: React.FC = () => {
           </Box>
         ) : (
           <>
-            <LaunchList launches={data?.docs || []} />
+            <LaunchList launches={data || []} />
             <Box display="flex" justifyContent="center" mt={4}>
               <Button
                 variant="contained"
                 color="primary"
                 onClick={() => setPage((prevPage) => Math.max(prevPage - 1, 1))}
-                disabled={page === 1 || isPreviousData}
+                disabled={page === 1 || isFetching}
                 sx={{ mr: 2 }}
               >
                 Previous
@@ -66,7 +64,7 @@ const LaunchPage: React.FC = () => {
                 variant="contained"
                 color="primary"
                 onClick={() => setPage((prevPage) => prevPage + 1)}
-                disabled={isPreviousData || !data?.hasNextPage}
+                disabled={isFetching || (data && data.length < 8)}
               >
                 Next
               </Button>
