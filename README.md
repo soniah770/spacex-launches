@@ -1,6 +1,6 @@
 # Spacex-Launches
 
-setup and configuration with TypeScript, React,MUI and Tanstack Query ,Zustand.
+setup and configuration with TypeScript, React,MUI and React Query ,Zustand.
 
 | Tool        | Purpose                                           |
 | ----------- | ------------------------------------------------- |
@@ -16,6 +16,28 @@ setup and configuration with TypeScript, React,MUI and Tanstack Query ,Zustand.
 ```bash
 git clone https://github.com/soniah770/spacex-launches.git
 cd spacex-launches
+
+This will start the development server on http://localhost:5173.
+
+```
+
+### Docker Setup
+
+You can also run the application inside a Docker container.
+
+Build the Docker Image
+To build the Docker image, run:
+
+```bash
+docker-compose build
+```
+
+Run the Docker Container
+
+```bash
+docker-compose up
+The application will be available at http://localhost:5173.
+
 ```
 
 ### Features

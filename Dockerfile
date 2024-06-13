@@ -1,10 +1,10 @@
-# Stage 1: Build the React application
-FROM node:20-alpine AS build
+# Use the official Node.js image
+FROM node:20
 
-# Set working directory
-WORKDIR /app
+# Create and change to the app directory
+WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json
+# Copy application dependency manifests to the container image
 COPY package*.json ./
 
 # Install dependencies
@@ -13,17 +13,8 @@ RUN npm install
 # Copy the rest of the application code
 COPY . .
 
-# Build the application
-RUN npm run build
+# Expose the port the app runs on
+EXPOSE 5173
 
-# Stage 2: Serve the application using nginx
-FROM nginx:alpine
-
-# Copy the build output to nginx's html directory
-COPY --from=build /app/dist /usr/share/nginx/html
-
-# Expose the port nginx is running on
-EXPOSE 80
-
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Define the command to run the Vite development server
+CMD ["npm", "run", "dev"]
