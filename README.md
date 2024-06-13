@@ -30,7 +30,7 @@ cd spacex-launches
 
 - 🧪 Testing with **Vitest** and **React Testing Library**.
 
-- ✅ Code quality tools with **ESLint**, **Prettier** and **Stylelint**.
+- ✅ Code quality tools with **ESLint**, **Prettier**.
 
 ## 🤖 Scripts
 
