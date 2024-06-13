@@ -1,10 +1,10 @@
-// src/components/Header.tsx
+import React from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import { useStore } from '../store';
 
-const Header = () => {
+const Header: React.FC = () => {
   const isDarkMode = useStore((state) => state.isDarkMode);
   const toggleDarkMode = useStore((state) => state.toggleDarkMode);
 
