@@ -26,7 +26,6 @@ const App: React.FC = () => {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
         <CssBaseline />
-
         <Header />
         <LaunchPage />
       </ThemeProvider>

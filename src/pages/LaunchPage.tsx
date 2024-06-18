@@ -1,21 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   Box,
-  Button,
   CircularProgress,
   Container,
   TextField,
   Typography,
 } from '@mui/material';
+import { debounce } from 'lodash';
 import { useLaunchList } from '../hooks/useFetchLaunches';
-import LaunchList from '../components/LaunchList';
+import Pagination from '../components/Pagination';
+
+const LaunchList = React.lazy(() => import('../components/LaunchList'));
 
 const LaunchPage: React.FC = () => {
   const [page, setPage] = useState<number>(1);
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const query = searchQuery ? { name: searchQuery } : {};
+  const [debouncedQuery, setDebouncedQuery] = useState<string>('');
+
+  const query = debouncedQuery ? { name: debouncedQuery } : {};
 
   const { data, isLoading, isError, isFetching } = useLaunchList(page, query);
+
+  const debouncedSetQuery = useCallback(
+    debounce((value: string) => {
+      setDebouncedQuery(value);
+    }, 500),
+    [],
+  );
+
+  useEffect(() => {
+    debouncedSetQuery(searchQuery);
+  }, [searchQuery, debouncedSetQuery]);
 
   return (
     <Box p={3}>
@@ -25,17 +40,13 @@ const LaunchPage: React.FC = () => {
             label="Search Launches"
             variant="outlined"
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              setPage(1);
+            }}
             fullWidth
-            sx={{ maxWidth: 500, mr: 2 }}
+            sx={{ maxWidth: 500 }}
           />
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => setPage(1)}
-          >
-            Search
-          </Button>
         </Box>
         {isLoading ? (
           <Box display="flex" justifyContent="center" mt={4}>
@@ -49,26 +60,15 @@ const LaunchPage: React.FC = () => {
           </Box>
         ) : (
           <>
-            <LaunchList launches={data || []} />
-            <Box display="flex" justifyContent="center" mt={4}>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={() => setPage((prevPage) => Math.max(prevPage - 1, 1))}
-                disabled={page === 1 || isFetching}
-                sx={{ mr: 2 }}
-              >
-                Previous
-              </Button>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={() => setPage((prevPage) => prevPage + 1)}
-                disabled={isFetching || (data && data.length < 8)}
-              >
-                Next
-              </Button>
-            </Box>
+            <React.Suspense fallback={<CircularProgress />}>
+              <LaunchList launches={data || []} />
+            </React.Suspense>
+            <Pagination
+              page={page}
+              setPage={setPage}
+              isFetching={isFetching}
+              dataLength={data?.length || 0}
+            />
           </>
         )}
       </Container>

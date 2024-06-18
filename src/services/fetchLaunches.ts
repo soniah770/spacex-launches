@@ -14,6 +14,8 @@ const mapLaunchResponse = (data: Doc): Doc => ({
   date_precision: data.date_precision,
   upcoming: data.upcoming,
   id: data.id,
+  cores: data.cores,
+  details: data.details,
 });
 
 export const getLaunchList = async (

@@ -1,58 +1,62 @@
-// src/components/LaunchCard.stories.tsx
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 import LaunchCard from '../components/LaunchCard';
-import { Card, CardContent, Typography, Box } from '@mui/material';
+import { Doc } from '../types';
 
-// Define a default export containing the component metadata
 export default {
   title: 'Components/LaunchCard',
   component: LaunchCard,
-} as ComponentMeta<typeof LaunchCard>;
+} as Meta<typeof LaunchCard>;
 
-// Create a template of how args map to rendering
-const Template: ComponentStory<typeof LaunchCard> = (args) => (
-  <Card>
-    <CardContent>
-      <Box>
-        <img
-          src={args.patch.small}
-          alt={args.name}
-          style={{ width: '100%', maxWidth: '200px' }}
-        />
-        <Typography variant="h6">{args.name}</Typography>
-        <Typography variant="body2">
-          Flight Number: {args.flightNumber}
-        </Typography>
-        <Typography variant="body2">
-          Success: {args.success ? 'Yes' : 'No'}
-        </Typography>
-        <Typography variant="body2">
-          Number of Cores: {args.cores.length}
-        </Typography>
-      </Box>
-    </CardContent>
-  </Card>
-);
+const Template: StoryFn<{ launch: Doc }> = (args) => <LaunchCard {...args} />;
 
-// Define different stories for the component
-export const Default = Template.bind({});
-Default.args = {
+const sampleLaunch: Doc = {
+  id: '1',
   name: 'FalconSat-2',
-  flightNumber: 1,
+  flight_number: 1,
   success: true,
-  cores: [{ core: 'core1' }],
-  patch: {
-    small: 'https://example.com/falcon-sat-2.png',
+  cores: [
+    {
+      core: 'core1',
+      flight: 1,
+      gridfins: false,
+      legs: false,
+      reused: false,
+      landing_attempt: false,
+      landing_success: null,
+      landing_type: null,
+      landpad: null,
+    },
+  ],
+  details: 'This is a successful launch of FalconSat-2.',
+  links: {
+    patch: {
+      small: 'https://example.com/falcon-sat-2.png',
+      large: 'https://example.com/falcon-sat-2-large.png',
+    },
+    reddit: {
+      campaign: null,
+      launch: null,
+      media: null,
+      recovery: null,
+    },
+    flickr: {
+      small: [],
+      original: [],
+    },
+    presskit: null,
+    webcast: null,
+    youtube_id: null,
+    article: null,
+    wikipedia: null,
   },
+  rocket: { name: 'Falcon 1', id: 'falcon1' },
+  launchpad: { name: 'Kwajalein Atoll', id: 'kwajalein' },
+  date_utc: '2006-03-24T22:30:00.000Z',
+  date_precision: 'hour',
+  upcoming: false,
 };
 
-export const FailedLaunch = Template.bind({});
-FailedLaunch.args = {
-  name: 'FalconSat-3',
-  flightNumber: 2,
-  success: false,
-  cores: [{ core: 'core2' }],
-  patch: {
-    small: 'https://example.com/falcon-sat-3.png',
-  },
+export const Default = Template.bind({});
+Default.args = {
+  launch: sampleLaunch,
 };

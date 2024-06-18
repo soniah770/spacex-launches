@@ -7,19 +7,19 @@ export interface Links {
   };
   reddit: {
     campaign: string | null;
-    launch: string;
-    media: string;
+    launch: string | null;
+    media: string | null;
     recovery: string | null;
   };
   flickr: {
     small: string[];
     original: string[];
   };
-  presskit: string;
-  webcast: string;
-  youtube_id: string;
-  article: string;
-  wikipedia: string;
+  presskit: string | null;
+  webcast: string | null;
+  youtube_id: string | null;
+  article: string | null;
+  wikipedia: string | null;
 }
 
 export interface Rocket {
@@ -30,6 +30,18 @@ export interface Rocket {
 export interface Launchpad {
   name: string;
   id: string;
+}
+
+export interface Core {
+  core: string;
+  flight: number;
+  gridfins: boolean;
+  legs: boolean;
+  reused: boolean;
+  landing_attempt: boolean;
+  landing_success: boolean | null;
+  landing_type: string | null;
+  landpad: string | null;
 }
 
 export interface Doc {
@@ -43,6 +55,8 @@ export interface Doc {
   date_precision: string;
   upcoming: boolean;
   id: string;
+  cores: Core[];
+  details?: string;
 }
 
 export interface ResponseData {
@@ -56,9 +70,4 @@ export interface ResponseData {
   hasNextPage: boolean;
   prevPage: number | null;
   nextPage: number | null;
-}
-
-export interface SearchInputProps {
-  query: string;
-  setQuery: (query: string) => void;
 }

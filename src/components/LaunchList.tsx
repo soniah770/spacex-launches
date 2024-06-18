@@ -1,6 +1,5 @@
-// src/components/LaunchList.tsx
 import React from 'react';
-import { Grid } from '@mui/material';
+import { Grid, Box } from '@mui/material';
 import LaunchCard from './LaunchCard';
 import { Doc } from '../types';
 
@@ -13,7 +12,9 @@ const LaunchList: React.FC<LaunchListProps> = ({ launches }) => {
     <Grid container spacing={3}>
       {launches.map((launch: Doc) => (
         <Grid item key={launch.id} xs={12} sm={6} md={4} lg={3}>
-          <LaunchCard launch={launch} />
+          <Box height="100%">
+            <LaunchCard launch={launch} />
+          </Box>
         </Grid>
       ))}
     </Grid>
